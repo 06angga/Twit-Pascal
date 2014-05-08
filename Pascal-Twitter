@@ -1,0 +1,74 @@
+program twitter;
+uses crt;
+
+type akun 	= record
+				nama, username, pass : string;
+				following : array [1..100] of string;
+				end;
+type twits 	= record
+				username, status : string;
+				jam, tanggal : integer;
+				end;
+var
+	id			: array[1..100] of akun;
+	twts 		: array[1..100] of twits;
+	username_id,passw : string;
+	pilih		: integer;
+	i,n			: integer;
+
+procedure judul();
+begin
+writeln ('=========================== TWITTER ===========================');
+writeln;
+end;
+
+procedure daftar();
+begin
+	for i:=1 to 1 do
+	begin
+	write('Masukkan Nama         : '); readln(id[i].nama);
+	write('Masukkan Username     : '); readln(id[i].username);
+	write('Masukkan Password     : '); readln(id[i].pass);
+	writeln;
+	end;
+end;
+
+procedure login;
+begin
+	write('Username : '); readln(username_id);
+	write('Password	: '); readln(passw);
+	for i:=1 to 1 do
+	begin
+		if (username_id = id[i].nama) and (passw = id[i].pass) then
+			begin
+				repeat
+				clrscr;
+				writeln('MENU');
+				writeln('1. Twits ');
+				writeln('2. Status');
+				writeln('3. Logout');
+				write('Pilih menu : '); readln(pilih);
+		
+				until (pilih = 3 );			
+			end
+		else if (username_id  <> id[i].nama) then
+			writeln('Salah Password');
+	end;		
+end;
+	
+begin
+	judul;
+	repeat
+	clrscr;
+		writeln('MENU');
+		writeln('1. Daftar ');
+		writeln('2. Login  ');
+		writeln('3. Exit   ');
+		write('Pilih menu : '); readln(pilih);	
+		case pilih of
+			1 : daftar;
+			2 : login;
+		end;
+		writeln('=================================================================');
+	until (pilih = 3);
+end.
