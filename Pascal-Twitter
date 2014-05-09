@@ -14,7 +14,8 @@ var
 	twts 		: array[1..100] of twits;
 	username_id,passw : string;
 	pilih		: integer;
-	i,n			: integer;
+	i,j,jml			: integer;
+        a:akun;
 
 procedure judul();
 begin
@@ -22,51 +23,72 @@ writeln ('=========================== TWITTER ===========================');
 writeln;
 end;
 
-procedure daftar();
+procedure form(var a:akun);
 begin
-	for i:=1 to 1 do
-	begin
-	write('Masukkan Nama         : '); readln(id[i].nama);
-	write('Masukkan Username     : '); readln(id[i].username);
-	write('Masukkan Password     : '); readln(id[i].pass);
+	write('Masukkan Nama         : '); readln(a.nama);
+write('Masukkan Username     : '); readln(a.username);
+	write('Masukkan Password     : '); readln(a.pass);
 	writeln;
+
+
+end;
+
+procedure daftar(var a:akun);
+var
+	ans:char;
+begin
+	ans:='y';
+        jml:=1;
+	repeat
+	begin
+	form(a);
+	id[jml] := a;
+	jml := jml+1;
+
+        write('Tambah Akun Y/N 		: ');readln(ans);
 	end;
+	until (ans='n');
 end;
 
 procedure login;
 begin
 	write('Username : '); readln(username_id);
 	write('Password	: '); readln(passw);
-	for i:=1 to 1 do
+	for i:=1 to jml do
 	begin
-		if (username_id = id[i].nama) and (passw = id[i].pass) then
+            if (username_id = id[i].username)  then	
 			begin
 				repeat
+				begin
 				clrscr;
+				judul;
 				writeln('MENU');
 				writeln('1. Twits ');
 				writeln('2. Status');
 				writeln('3. Logout');
 				write('Pilih menu : '); readln(pilih);
-		
-				until (pilih = 3 );			
-			end
-		else if (username_id  <> id[i].nama) then
-			writeln('Salah Password');
-	end;		
+				end;
+				until (pilih = 3 );
+			end; 
+	end;
+        readln();
 end;
-	
+
 begin
-	judul;
 	repeat
 	clrscr;
+		judul;
 		writeln('MENU');
 		writeln('1. Daftar ');
 		writeln('2. Login  ');
 		writeln('3. Exit   ');
-		write('Pilih menu : '); readln(pilih);	
+		write('Pilih menu : '); readln(pilih);
 		case pilih of
-			1 : daftar;
+			1 : begin
+
+
+					daftar(a);
+				end;
 			2 : login;
 		end;
 		writeln('=================================================================');
